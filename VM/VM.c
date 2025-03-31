@@ -34,8 +34,8 @@ enum
 
 enum
 {
-    MR_KBSR = 0xFE00, /* keyboard status */
-    MR_KBDR = 0xFE02  /* keyboard data */
+    MR_KBSR = 0x1E00, /* keyboard status */
+    MR_KBDR = 0x1E02  /* keyboard data */
 };
 
 /* register array */
