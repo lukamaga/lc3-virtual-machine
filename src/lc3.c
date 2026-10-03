@@ -135,34 +135,40 @@ static void mem_write(u16 address, u16 val)
 }
 
 /* Загрузка образа (.obj) в память */
-static void read_image_file(FILE* file)
+static int read_image_file(FILE* file)
 {
-    /* Первые 2 байта — origin (начальный адрес) */
-    uint16_t origin;
-    fread(&origin, sizeof(origin), 1, file);
-    /* Меняем порядок байт (LC-3 формат big-endian) */
-    origin = (origin << 8) | (origin >> 8);
-
-    /* Читаем оставшиеся слова и записываем в память */
-    uint16_t max_read = MEMORY_MAX - origin;
-    uint16_t* p = memory + origin;
-    size_t read = fread(p, sizeof(uint16_t), max_read, file);
-
-    /* Меняем порядок байт у прочитанного */
-    while (read-- > 0)
+    /* Decode the origin explicitly from the big-endian image header. */
+    unsigned char header[2];
+    if (fread(header, 1, sizeof(header), file) != sizeof(header))
     {
-        *p = (*p << 8) | (*p >> 8);
-        p++;
+        return 0;
     }
+    const size_t origin = ((size_t)header[0] << 8) | header[1];
+    const size_t capacity = MEMORY_MAX - origin;
+    size_t loaded = 0;
+    int high;
+
+    while ((high = fgetc(file)) != EOF)
+    {
+        int low = fgetc(file);
+        if (low == EOF || loaded >= capacity)
+        {
+            return 0;
+        }
+        memory[origin + loaded] = (u16)(((unsigned int)high << 8) |
+                                      (unsigned int)low);
+        ++loaded;
+    }
+    return !ferror(file) && loaded > 0;
 }
 
 static int read_image(const char* image_path)
 {
     FILE* file = fopen(image_path, "rb");
     if (!file) { return 0; }
-    read_image_file(file);
+    int loaded = read_image_file(file);
     fclose(file);
-    return 1;
+    return loaded;
 }
 
 /* Проверяем, нажата ли клавиша (не блокируем) */
@@ -175,21 +181,30 @@ static int check_key()
 /* Для UNIX-like (macOS, Linux) */
 
 static struct termios original_tio; /* Сохраняем настройки терминала */
+static int terminal_mode_changed;
 
 /* Восстанавливаем настройки терминала при выходе */
 static void restore_input_buffering()
 {
-    tcsetattr(STDIN_FILENO, TCSANOW, &original_tio);
+    if (terminal_mode_changed)
+    {
+        tcsetattr(STDIN_FILENO, TCSANOW, &original_tio);
+        terminal_mode_changed = 0;
+    }
 }
 
 /* Отключаем буферизацию (канонический режим, эхо) */
 static void disable_input_buffering()
 {
     struct termios new_tio;
-    tcgetattr(STDIN_FILENO, &original_tio);  /* сохраняем старые настройки */
+    if (tcgetattr(STDIN_FILENO, &original_tio) != 0)
+    {
+        return;
+    }
     new_tio = original_tio;
     new_tio.c_lflag &= ~ICANON & ~ECHO;      /* выключаем канонический режим и эхо */
-    tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
+    terminal_mode_changed =
+        tcsetattr(STDIN_FILENO, TCSANOW, &new_tio) == 0;
 }
 
 /* Проверяем, есть ли нажатая клавиша */
@@ -338,7 +353,7 @@ int main(int argc, const char* argv[])
             {
                 /* JSR / JSRR */
                 u16 long_flag = (instr >> 11) & 1;
-                reg[R_R7] = reg[R_PC];
+                u16 return_address = reg[R_PC];
                 if (long_flag)
                 {
                     u16 long_pc_offset = sign_extend(instr & 0x7FF, 11);
@@ -349,6 +364,7 @@ int main(int argc, const char* argv[])
                     u16 r1 = (instr >> 6) & 0x7;
                     reg[R_PC] = reg[r1];
                 }
+                reg[R_R7] = return_address;
             }
             break;
 
@@ -443,14 +459,11 @@ int main(int argc, const char* argv[])
                     case TRAP_PUTS:
                     {
                         /* выводим строку, адрес в R0 */
-                        u16* c = memory + reg[R_R0];
-                        while (*c)
+                        size_t address = reg[R_R0];
+                        while (address < MEMORY_MAX && memory[address])
                         {
-                            char ch = (*c) & 0xFF;
-                            putc(ch, stdout);
-                            char ch2 = (*c) >> 8;
-                            if (ch2) putc(ch2, stdout);
-                            ++c;
+                            putc((char)(memory[address] & 0xFF), stdout);
+                            ++address;
                         }
                         fflush(stdout);
                     }
@@ -468,14 +481,14 @@ int main(int argc, const char* argv[])
                     case TRAP_PUTSP:
                     {
                         /* выводим строку, адрес в R0; пара символов в одном 16-битном слове */
-                        u16* c = memory + reg[R_R0];
-                        while (*c)
+                        size_t address = reg[R_R0];
+                        while (address < MEMORY_MAX && memory[address])
                         {
-                            char ch1 = (*c) & 0xFF;
+                            u16 word = memory[address++];
+                            char ch1 = word & 0xFF;
                             putc(ch1, stdout);
-                            char ch2 = (*c) >> 8;
+                            char ch2 = word >> 8;
                             if (ch2) putc(ch2, stdout);
-                            ++c;
                         }
                         fflush(stdout);
                     }
