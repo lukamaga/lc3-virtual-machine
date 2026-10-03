@@ -1,0 +1,4 @@
+# Preserve source bytes and saved LC-3 image contents on every platform.
+*.c -text
+*.asm -text
+*.obj binary

@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+.vscode/
+cmake-build-*/
+/build/
+*.dSYM/
+*.o
+*.sym
+
+# LC-3 .obj files in examples are preserved guest images.

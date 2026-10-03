@@ -1,0 +1,163 @@
+{
+  "format_version": 1,
+  "source_versions": [
+    {
+      "file": "src/lc3.c",
+      "saved_source": "avm.c",
+      "original_sha256": "851a2edbf61d7d782b3c63fcfc73200137ce52aa9b79eba4b7a69e1d59be42d7",
+      "published_sha256": "05a0e55c8865c1c33516aa123948a455a3f35563154d89817d9b4f78aafea08d",
+      "treatment": "Original saved in import commit; focused corrections in default source"
+    },
+    {
+      "file": "archive/clion_draft/lc3.c",
+      "saved_source": "CLionProjects/untitled/main.c",
+      "original_sha256": "c3b3643a766cfc7b524c8695208cf19cb85e831e552c70cf3e6168ebe143f0c7",
+      "published_sha256": "c3b3643a766cfc7b524c8695208cf19cb85e831e552c70cf3e6168ebe143f0c7",
+      "treatment": "Byte-identical"
+    },
+    {
+      "file": "archive/course_vm/VM.c",
+      "saved_source": "OS/GitHub/OS/VM/VM.c",
+      "original_sha256": "3ba53f3d056f7509ddfe435ed30f2da1ea0853d89840394ce9df17d4356c9986",
+      "published_sha256": "3ba53f3d056f7509ddfe435ed30f2da1ea0853d89840394ce9df17d4356c9986",
+      "treatment": "Byte-identical"
+    }
+  ],
+  "guest_programs": [
+    {
+      "file": "examples/basics/add.asm",
+      "saved_source": "OS/lc3tools/add.asm",
+      "sha256": "ed7dd287d15c2095599ff55ba093c8906e4edddec6d451673e4d065d8df43064",
+      "bytes": 300,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/add.obj",
+      "saved_source": "OS/GitHub/OS/VM/add.obj",
+      "sha256": "92bad09ac1e246713ea33cc62abd8a9da25d11f04dee9ad8ad83099f4a61feb4",
+      "bytes": 38,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/sub.asm",
+      "saved_source": "OS/lc3tools/sub.asm",
+      "sha256": "3bab3cfbf3ae3b1d88d6c288817f3660c548c5e3533952c785992cca449fca85",
+      "bytes": 350,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/sub.obj",
+      "saved_source": "OS/GitHub/OS/VM/sub.obj",
+      "sha256": "1e297f6c65dd89f21e5508d2a54bb202bc36102348b9183abfa8daba5ca2ae5c",
+      "bytes": 44,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/mul.asm",
+      "saved_source": "OS/lc3tools/mul.asm",
+      "sha256": "d3e4c2e6e9160afd840732aad0b42088a0de2bbc8baa866bfb870f93fe87492e",
+      "bytes": 558,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/mul.obj",
+      "saved_source": "OS/GitHub/OS/VM/mul.obj",
+      "sha256": "bfab9e2f2fa450a36dbba9bc6d6066769e0f91c4e2d017c60cce2d06bb7f275a",
+      "bytes": 54,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/ld.asm",
+      "saved_source": "OS/lc3tools/ld.asm",
+      "sha256": "821eea40bf4467c56d0d1149ce46790c52c701e91e9d44e98b5a538372670616",
+      "bytes": 589,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/ld.obj",
+      "saved_source": "OS/GitHub/OS/VM/ld.obj",
+      "sha256": "10e9a915d42e5fafdbb7c7a6abb6148f6577d8f7119997370e1cc1e1cdd6009c",
+      "bytes": 170,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/loop.asm",
+      "saved_source": "OS/lc3tools/loop.asm",
+      "sha256": "c644b28781e971279c05233509f90d832dd83399211c486c218f7aa10aebdbc3",
+      "bytes": 267,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/loop.obj",
+      "saved_source": "OS/GitHub/OS/VM/loop.obj",
+      "sha256": "2bb612e3880ff656ef3c2dbcb1449e8885c0e2c929875f852a4e1623484809a4",
+      "bytes": 28,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/input.asm",
+      "saved_source": "OS/lc3tools/input.asm",
+      "sha256": "0c5b4a29f5817c42a092ffa53a1cfa2dd0db63cb1e91043bc5b70ef55f5c4f00",
+      "bytes": 300,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/input.obj",
+      "saved_source": "OS/GitHub/OS/VM/input.obj",
+      "sha256": "1a93966bcfc38c7b3c8d1429b951c944b3b2bf6c9ec1b42c2e4602d3729cd3f4",
+      "bytes": 90,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/simb.asm",
+      "saved_source": "OS/lc3tools/simb.asm",
+      "sha256": "8a167f2e082af705a8a02b01d65f5cc4e4ee77846817775bf76d075c693ccbce",
+      "bytes": 1559,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/simb.obj",
+      "saved_source": "OS/GitHub/OS/VM/simb.obj",
+      "sha256": "04a6ce078278a9abf75b21e1682b4c05bd2d804f1633fc324ec5009c8da9b039",
+      "bytes": 172,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/basics/sum_large.asm",
+      "saved_source": "OS/lc3tools/sum_large.asm",
+      "sha256": "2dc8cf20dc753d101dee07ee16019c1865440fa736a604e40f00f19a76378776",
+      "bytes": 3776,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/basics/sum_large.obj",
+      "saved_source": "OS/GitHub/OS/VM/sum_large.obj",
+      "sha256": "9ac7a92cf2a9f71904c785643525c29b33a2af760bcf655be51854c4f2925ef0",
+      "bytes": 122,
+      "kind": "LC-3 guest image"
+    },
+    {
+      "file": "examples/2048/2048.asm",
+      "saved_source": "OS/lc3tools/2048.asm",
+      "sha256": "7a2232b28c4758f770d86c657a63b449da942011294fcbcc424ae667d4305a63",
+      "bytes": 31215,
+      "kind": "LC-3 assembly source"
+    },
+    {
+      "file": "examples/2048/2048.obj",
+      "saved_source": "OS/GitHub/OS/VM/2048.obj",
+      "sha256": "d791e204fb9c083480b3af21f49ff245fe7e3dc0574af647d691e13dea9f2318",
+      "bytes": 2276,
+      "kind": "LC-3 guest image"
+    }
+  ],
+  "original_standalone_commit": "1d09b9da277b775dc5e3a53662ebb46ad1573cf0",
+  "historical_branch": "archive/course-vm",
+  "historical_source_commit": "9928df4f7ee3db725a3601131cb7b71b232bb185",
+  "verification": {
+    "source_bytes_compared": true,
+    "images_reassembled": false,
+    "emulator_compiled": false,
+    "programs_executed": false
+  }
+}
