@@ -55,16 +55,13 @@ These `.obj` files are LC-3 guest programs, not native build artifacts. They are
 ## How execution works
 
 ```mermaid
-flowchart LR
-    A[Read image origin and words] --> B[Load guest memory]
-    B --> C[Set PC to x3000]
-    C --> D[Fetch word at PC]
-    D --> E[Increment PC]
-    E --> F[Decode opcode and operands]
-    F --> G[Update registers, memory or console]
-    G --> H{Continue?}
-    H -->|Yes| D
-    H -->|HALT or unsupported opcode| I[Exit]
+flowchart TD
+    A["Load images into memory<br/>Set PC to x3000"] --> B["Fetch instruction at PC<br/>Increment PC"]
+    B --> C[Decode opcode and operands]
+    C --> D[Update registers, memory or console]
+    D --> E{Continue?}
+    E -->|Yes| B
+    E -->|HALT or unsupported opcode| F[Exit]
 ```
 
 The four most significant bits select the opcode. The remaining bits encode register indices, immediate values or signed offsets. PC-relative addressing uses the already incremented program counter. Arithmetic results and addresses are stored as 16-bit values.
